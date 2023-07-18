@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Moviehiro",
-    "slug": "moviehiro-client-v2",
+    "slug": "moviehiro-client",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,11 +20,15 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
       },
-      "package": "com.marvsexpo.animegonclientv2"
+      "package": "com.marvsexpo.moviehiro-client"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {}
+    "extra": {
+      "eas": {
+        "projectId": "09697c25-ccba-4784-ac06-3c72e61443c0"
+      }
+    }
   }
 }
