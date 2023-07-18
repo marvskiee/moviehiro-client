@@ -52,11 +52,9 @@ const Watch = (props) => {
           setError(2);
         }
       });
-    if (count != 1) {
-      setError(true);
-    }
   };
   const watchHandler = async (item, watch_episode) => {
+    console.log("dito");
     setWatchData(null);
     setPlayer({
       image: null,
@@ -64,6 +62,8 @@ const Watch = (props) => {
       episode_number: null,
     });
     if (!item?.seasons && !watch_episode) {
+      console.log("movie");
+
       await axios_config
         .get("watch/" + item?.episodeId + "?id=" + item?.id)
         .then((res) => {
@@ -223,6 +223,7 @@ const Watch = (props) => {
           </View>
         </View>
         <Text style={[styles.label, { paddingHorizontal: 10 }]}>Quality</Text>
+
         <ScrollView horizontal={true}>
           <View
             style={{
@@ -266,9 +267,11 @@ const Watch = (props) => {
             )}
           </View>
         </ScrollView>
-        <Text style={[styles.label, { paddingHorizontal: 10 }]}>Seasons</Text>
+        {movieInfo?.seasons && (
+          <Text style={[styles.label, { paddingHorizontal: 10 }]}>Seasons</Text>
+        )}
         <ScrollView horizontal={true}>
-          {movieInfo?.seasons.length > 0 && (
+          {movieInfo?.seasons?.length > 0 && (
             <View
               style={{
                 padding: 10,
@@ -306,10 +309,11 @@ const Watch = (props) => {
             </View>
           )}
         </ScrollView>
-
-        <Text style={[styles.label, { paddingHorizontal: 10 }]}>
-          Other Episode's
-        </Text>
+        {movieInfo?.seasons && (
+          <Text style={[styles.label, { paddingHorizontal: 10 }]}>
+            Other Episode's
+          </Text>
+        )}
       </View>
     );
   };
@@ -342,7 +346,7 @@ const Watch = (props) => {
     <SafeAreaView style={styles.container}>
       <StatusBar />
       {/* {isLoading && <Modal />} */}
-      {movieInfo?.seasons ? (
+      {movieInfo ? (
         <>
           <View
             style={styles.header}
@@ -381,7 +385,7 @@ const Watch = (props) => {
             keyExtractor={(item) => item?.id}
             nestedScrollEnabled={true}
             data={
-              movieInfo?.seasons.filter((i) => i?.season == selectedSeason)[0]
+              movieInfo?.seasons?.filter((i) => i?.season == selectedSeason)[0]
                 ?.episodes
             }
             ListHeaderComponent={<WatchHeader />}
